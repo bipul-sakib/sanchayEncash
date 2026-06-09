@@ -1,128 +1,228 @@
+/* গ্লোবাল রিসেট ও ফন্ট */
 * {
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 body {
-    background-color: #f4f7f6;
+    background-color: #f0f4f8;
+    color: #333;
     display: flex;
     justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     padding: 20px;
-    margin: 0;
 }
 
 .calculator-container {
     background-color: #ffffff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    max-width: 500px;
+    max-width: 600px;
     width: 100%;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 h2 {
-    color: #2c3e50;
+    color: #1e3799;
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-size: 24px;
 }
 
 .subtitle {
     text-align: center;
-    color: #7f8c8d;
-    margin-top: 0;
-    margin-bottom: 25px;
+    color: #6a89cc;
     font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* ফর্ম স্টাইলিং */
+.form-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
-    color: #34495e;
-    font-weight: bold;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #4a5568;
     font-size: 14px;
 }
 
 input, select {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #bdc3c7;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 15px;
+    color: #334155;
+    background-color: #fff;
+    transition: all 0.3s ease;
 }
 
 input:focus, select:focus {
     outline: none;
-    border-color: #3498db;
+    border-color: #4a69bd;
+    box-shadow: 0 0 0 3px rgba(74, 105, 189, 0.2);
+}
+
+.help-text {
+    display: block;
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
 }
 
 button {
     width: 100%;
     padding: 12px;
-    background-color: #27ae60;
+    background-color: #10ac84;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    transition: background 0.2s ease;
     margin-top: 10px;
-    transition: background 0.3s;
 }
 
 button:hover {
-    background-color: #2ecc71;
+    background-color: #0ca37a;
 }
 
+/* ফলাফল সেকশন স্টাইলিং */
 .result-box {
-    margin-top: 25px;
+    margin-top: 30px;
     padding: 20px;
-    border: 1px solid #e0e0e0;
     border-radius: 8px;
-    background-color: #f9fbfd;
+    background-color: #fdfdfd;
+    border: 2px solid #e2e8f0;
 }
 
 .result-box h3 {
-    margin-top: 0;
-    color: #2980b9;
+    color: #1e3799;
+    font-size: 18px;
     text-align: center;
-    border-bottom: 2px solid #ecf0f1;
+    margin-bottom: 20px;
     padding-bottom: 10px;
+    border-bottom: 2px solid #f1f5f9;
 }
 
+/* সামারি কার্ডস */
+.summary-cards {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card {
+    flex: 1;
+    padding: 12px;
+    border-radius: 6px;
+    text-align: center;
+    color: white;
+}
+
+.bg-blue { background-color: #4a69bd; }
+.bg-green { background-color: #05c46b; }
+
+.card-title {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.card-value {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+/* টেবিল স্টাইলিং */
 .result-table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 15px;
 }
 
 .result-table td {
-    padding: 8px 0;
-    border-bottom: 1px solid #ecf0f1;
-    color: #2c3e50;
+    padding: 12px 8px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 14px;
 }
 
 .result-table td:last-child {
     text-align: right;
+    font-weight: 600;
+}
+
+.text-danger { color: #e74c3c; }
+.text-success { color: #2ecc71; }
+
+.highlight {
+    background-color: #f1f2f6;
+    font-size: 16px;
     font-weight: bold;
 }
 
-.highlight {
-    background-color: #e8f8f5;
-    font-size: 18px;
-    color: #16a085;
+.highlight td {
+    color: #1e3799 !important;
+    border-top: 2px solid #cbd5e1;
+    border-bottom: 2px solid #cbd5e1;
+    font-size: 18px !important;
 }
 
-.hidden {
-    display: none;
+/* নোটিশ ও ওয়ার্নিং মেসেজ */
+.penalty-msg, .adjustment-msg {
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-top: 15px;
+    line-height: 1.5;
 }
 
 .penalty-msg {
-    color: #e74c3c;
-    font-size: 13px;
-    margin-top: 15px;
-    text-align: center;
-    font-weight: bold;
+    background-color: #fff5f5;
+    color: #c53030;
+    border-left: 4px solid #f56565;
+}
+
+.adjustment-msg {
+    background-color: #fffaf0;
+    color: #dd6b20;
+    border-left: 4px solid #ed8936;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* মোবাইল রেসপন্সিভনেস */
+@media (max-width: 480px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
 }
