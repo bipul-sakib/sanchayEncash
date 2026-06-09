@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সঞ্চয়পত্র নগদায়ন ক্যালকুলেটর</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="calculator-container">
+        <h2>সঞ্চয়পত্র নগদায়ন ক্যালকুলেটর</h2>
+        <p class="subtitle">মেয়াদ শেষ হওয়ার আগে সঞ্চয়পত্র ভাঙ্গানোর হিসাব</p>
+
+        <div class="form-group">
+            <label for="scheme">সঞ্চয়পত্রের ধরন:</label>
+            <select id="scheme">
+                <option value="poribar">পরিবার সঞ্চয়পত্র (৫ বছর)</option>
+                <option value="pensioner">পেনশনার সঞ্চয়পত্র (৫ বছর)</option>
+                <option value="bangladesh">বাংলাদেশ সঞ্চয়পত্র (৫ বছর)</option>
+                <option value="tin_mash">৩ মাস অন্তর মুনাফাভিত্তিক (৩ বছর)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="principal">বিনিয়োগের পরিমাণ (টাকা):</label>
+            <input type="number" id="principal" placeholder="যেমন: 500000" required>
+        </div>
+
+        <div class="form-group">
+            <label for="issue_date">ক্রয়ের তারিখ:</label>
+            <input type="date" id="issue_date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="encashment_date">ভাঙ্গানোর (নগদায়ন) তারিখ:</label>
+            <input type="date" id="encashment_date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="total_investment">সর্বমোট বিনিয়োগ (ট্যাক্স হিসাবের জন্য):</label>
+            <input type="number" id="total_investment" placeholder="আপনার মোট সঞ্চয়পত্র বিনিয়োগ" required>
+        </div>
+
+        <div class="form-group">
+            <label for="withdrawn_profit">ইতিমধ্যে উত্তোলিত মুনাফা (যদি থাকে):</label>
+            <input type="number" id="withdrawn_profit" value="0" placeholder="ইতিমধ্যে তুলে নেওয়া মোট মুনাফা">
+        </div>
+
+        <button onclick="calculateEncashment()">হিসাব করুন</button>
+
+        <div id="result_box" class="result-box hidden">
+            <h3>নগদায়ন রিপোর্ট</h3>
+            <table class="result-table">
+                <tr>
+                    <td>সম্পন্ন হওয়া পূর্ণ বছর:</td>
+                    <td id="res_years">0</td>
+                </tr>
+                <tr>
+                    <td>প্রযোজ্য স্ল্যাব রেট:</td>
+                    <td id="res_rate">0%</td>
+                </tr>
+                <tr>
+                    <td>প্রাপ্য মোট মুনাফা (গ্রস):</td>
+                    <td id="res_gross_profit">0 টাকা</td>
+                </tr>
+                <tr>
+                    <td>উৎসে কর (TDS):</td>
+                    <td id="res_tax">0 টাকা</td>
+                </tr>
+                <tr>
+                    <td>প্রাপ্য নিট মুনাফা:</td>
+                    <td id="res_net_profit">0 টাকা</td>
+                </tr>
+                <tr class="highlight">
+                    <td>চূড়ান্ত ফেরতযোগ্য টাকা:</td>
+                    <td id="res_final_amount">0 টাকা</td>
+                </tr>
+            </table>
+            <p id="penalty_msg" class="penalty-msg hidden">⚠️ ১ বছরের আগে ভাঙ্গানোর কারণে আপনি কোনো মুনাফা পাবেন না এবং ইতিমধ্যে তোলা মুনাফা আসল টাকা থেকে কাটা হয়েছে।</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
