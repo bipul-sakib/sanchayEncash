@@ -4,7 +4,230 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>সঞ্চয়পত্র নগদায়ন ক্যালকুলেটর</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .calculator-container {
+            background-color: #ffffff;
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            color: #1e3799;
+            text-align: center;
+            margin-bottom: 8px;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6a89cc;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .form-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 15px;
+            color: #334155;
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4a69bd;
+            box-shadow: 0 0 0 3px rgba(74, 105, 189, 0.2);
+        }
+
+        .help-text {
+            display: block;
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #10ac84;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0ca37a;
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fdfdfd;
+            border: 2px solid #e2e8f0;
+        }
+
+        .result-box h3 {
+            color: #1e3799;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .summary-cards {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            flex: 1;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            color: white;
+        }
+
+        .bg-blue { background-color: #4a69bd; }
+        .bg-green { background-color: #05c46b; }
+
+        .card-title {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .card-value {
+            display: block;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .result-table td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        .result-table td:last-child {
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .text-danger { color: #e74c3c; }
+        .text-success { color: #2ecc71; }
+
+        .highlight {
+            background-color: #f1f2f6;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .highlight td {
+            color: #1e3799 !important;
+            border-top: 2px solid #cbd5e1;
+            border-bottom: 2px solid #cbd5e1;
+            font-size: 18px !important;
+        }
+
+        .penalty-msg, .adjustment-msg {
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+
+        .penalty-msg {
+            background-color: #fff5f5;
+            color: #c53030;
+            border-left: 4px solid #f56565;
+        }
+
+        .adjustment-msg {
+            background-color: #fffaf0;
+            color: #dd6b20;
+            border-left: 4px solid #ed8936;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 480px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -30,7 +253,7 @@
 
             <div class="form-group">
                 <label for="total_investment">সর্বমোট সঞ্চয়পত্র বিনিয়োগ (টাকা):</label>
-                <input type="number" id="total_investment" placeholder="ট্যাক্সের হার (৫% বা ১০%) নির্ধারণের জন্য" required>
+                <input type="number" id="total_investment" placeholder="ট্যাক্সের হার নির্ধারণের জন্য" required>
                 <small class="help-text">* ৫ লাখের বেশি মোট বিনিয়োগ থাকলে ১০% ট্যাক্স কাটা হয়।</small>
             </div>
 
@@ -51,7 +274,7 @@
                 </div>
             </div>
 
-            <button onclick="calculateEncashment()">হিসাব করুন</button>
+            <button type="button" onclick="calculateEncashment()">হিসাব করুন</button>
         </div>
 
         <div id="result_box" class="result-box hidden">
@@ -108,5 +331,105 @@
         </div>
     </div>
 
+    <script>
+        const slabRates = {
+            "poribar": { 0: 0, 1: 9.50, 2: 10.00, 3: 10.50, 4: 11.00, 5: 11.52 },
+            "pensioner": { 0: 0, 1: 9.70, 2: 10.15, 3: 10.65, 4: 11.20, 5: 11.76 },
+            "bangladesh": { 0: 0, 1: 9.35, 2: 9.80, 3: 10.25, 4: 10.75, 5: 11.28 },
+            "tin_mash": { 0: 0, 1: 9.00, 2: 9.50, 3: 11.04 }
+        };
+
+        const maxYears = {
+            "poribar": 5, "pensioner": 5, "bangladesh": 5, "tin_mash": 3
+        };
+
+        function calculateEncashment() {
+            const scheme = document.getElementById("scheme").value;
+            const principal = parseFloat(document.getElementById("principal").value);
+            const totalInvestment = parseFloat(document.getElementById("total_investment").value);
+            const regularRate = parseFloat(document.getElementById("regular_rate").value);
+            const issueDateStr = document.getElementById("issue_date").value;
+            const encashmentDateStr = document.getElementById("encashment_date").value;
+
+            if (isNaN(principal) || isNaN(totalInvestment) || isNaN(regularRate) || !issueDateStr || !encashmentDateStr) {
+                alert("দয়া করে সব ফিল্ড সঠিকভাবে পূরণ করুন।");
+                return;
+            }
+
+            const issueDate = new Date(issueDateStr);
+            const encashDate = new Date(encashmentDateStr);
+
+            if (encashDate <= issueDate) {
+                alert("ভাঙ্গানোর তারিখ অবশ্যই ক্রয়ের তারিখের পরের কোনো তারিখ হতে হবে।");
+                return;
+            }
+
+            let totalMonths = (encashDate.getFullYear() - issueDate.getFullYear()) * 12 + (encashDate.getMonth() - issueDate.getMonth());
+            if (encashDate.getDate() < issueDate.getDate()) {
+                totalMonths--;
+            }
+            if (totalMonths < 0) totalMonths = 0;
+
+            let completedYears = Math.floor(totalMonths / 12);
+            const schemeMaxYear = maxYears[scheme];
+            if (completedYears > schemeMaxYear) {
+                completedYears = schemeMaxYear;
+            }
+
+            let withdrawnProfit = 0;
+            if (totalMonths > 0) {
+                withdrawnProfit = (principal * (regularRate / 100) * totalMonths) / 12;
+            }
+
+            const applicableRate = slabRates[scheme][completedYears];
+            let taxRate = totalInvestment > 500000 ? 10 : 5;
+            
+            if (scheme === "pensioner" && totalInvestment <= 500000) {
+                taxRate = 0;
+            }
+
+            let grossProfit = 0;
+            let taxAmount = 0;
+            let netProfit = 0;
+            let finalPayable = 0;
+
+            if (completedYears >= 1) {
+                grossProfit = (principal * (applicableRate / 100) * completedYears);
+                taxAmount = (grossProfit * taxRate) / 100;
+                netProfit = grossProfit - taxAmount;
+                finalPayable = (principal + netProfit) - withdrawnProfit;
+
+                document.getElementById("penalty_msg").classList.add("hidden");
+                
+                if (withdrawnProfit > netProfit) {
+                    document.getElementById("adjustment_msg").classList.remove("hidden");
+                } else {
+                    document.getElementById("adjustment_msg").classList.add("hidden");
+                }
+            } else {
+                grossProfit = 0;
+                taxAmount = 0;
+                netProfit = 0;
+                finalPayable = principal - withdrawnProfit;
+
+                document.getElementById("penalty_msg").classList.remove("hidden");
+                document.getElementById("adjustment_msg").classList.add("hidden");
+            }
+
+            document.getElementById("res_years").innerText = completedYears + " বছর";
+            document.getElementById("res_rate").innerText = applicableRate.toFixed(2) + "%";
+            document.getElementById("res_principal").innerText = principal.toLocaleString('bn-BD') + " ৳";
+            document.getElementById("res_total_time").innerText = totalMonths + " মাস";
+            document.getElementById("res_withdrawn_rate").innerText = regularRate;
+            document.getElementById("res_withdrawn_profit").innerText = "- " + withdrawnProfit.toLocaleString('bn-BD', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " ৳";
+            document.getElementById("res_gross_profit").innerText = grossProfit.toLocaleString('bn-BD', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " ৳";
+            document.getElementById("res_tax_rate").innerText = taxRate;
+            document.getElementById("res_tax").innerText = "- " + taxAmount.toLocaleString('bn-BD', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " ৳";
+            document.getElementById("res_net_profit").innerText = "+ " + netProfit.toLocaleString('bn-BD', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " ৳";
+            document.getElementById("res_final_amount").innerText = finalPayable.toLocaleString('bn-BD', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " ৳";
+
+            document.getElementById("result_box").classList.remove("hidden");
+        }
+    </script>
 </body>
 </html>
